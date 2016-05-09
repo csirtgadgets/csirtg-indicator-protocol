@@ -94,7 +94,7 @@ Enumerated types are represented by the ENUM data type, and consist of an ordere
 # 8. References
 ## Known Implementations
 
-* csirtg-indicator-py - [github.com/csirtgadgets](https://github.com/csirtgadgets/csirtg-indicator-py)
+* csirtg-indicator-py - [github.com/csirtgadgets](https://github.com/csirtgadgets/indicator-py)
 
 
 ## Misc
