@@ -31,16 +31,53 @@ The Indicator class is the top level class for describing indicator information.
 +---------------+
 | Indicator     |
 +---------------+
-| REAL version  |<>----------[ Indicator      ]
-| INT32 id      |<>----------[ TLP            ]
-|               |
+| REAL version  |<>----------[ indicator      ]
+|               |<>----------[ itype          ]
+|               |<>----------[ count          ]
+|               |<>--------<>[ tags           ]
+|               |<>----------[ tlp            ]
+|               |<>----------[ uuid           ]
+|               |<>----------[ provider       ]
+|               |<>----------[ group          ]
+|               |<>----------[ description    ]
+|               |<>----------[ message        ]
+|               |<>----------[ confidence     ]
+|               |<>----------[ firsttime      ]
+|               |<>----------[ lasttime       ]
+|               |<>----------[ reporttime     ]
+|               |<>----------[ cc             ]
+|               |<>----------[ asn            ]
+|               |<>----------[ asn_dsec       ]
+|               |<>----------[ longitude      ]
+|               |<>----------[ lattitude      ]
+|               |<>----------[ timezone       ]
+|               |<>----------[ city           ]
+|               |<>----------[ region         ]
+|               |<>----------[ reference      ]
+|               |<>----------[ reference_tlp  ]
+|               |<>----------[ portlist       ]
+|               |<>----------[ protocol       ]
+|               |<>----------[ dest_portlist  ]
+|               |<>----------[ mask           ]
+|               |<>----------[ rdata          ]
+|               |<>----------[ peers          ]
+|               |<>--------<>[ additional_data]
 +---------------+
 ```
 
 #####*The aggregate class that constitute Indicator is:*
 
-### Indicator
-Zero or many. STRING. A free-form string representing the indicator itself.
+### indicator
+Exactly One. STRING. A free-form string.
+
+### itype
+Exactly One. STRING. A free-form string. Usually one of [ipv4|ipv6|url|fqdn|asn|email|sha1|sha256|sha512|md5].
+
+### group
+Exactly One. STRING. A free-form string. Denotes a "group" to share the data with (eg: staff.example.com).
+
+### provider
+Exactly One. STRING. A free-form string. Denotes the provider FQDN of the data (eg: csirtg.io).
 
 ### TLP
 Exactly One. STRING. A free-form string representing the TLP used for sharing purposes.
@@ -57,47 +94,42 @@ Semver | REAL
 ```2.1.2```  | ```2.1020```
 ```0.01.01```| ```0.0101```
 
-### id
-Required. INT32. A unique identifier representing the person.
-
 # 6. Examples
 ## XML
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
-<Indicator version="0.0001" id="1">
+<Indicator version="0.0001">
     <Indicator>example.com</Indicator>
-    <TLP>RED</TLP>
+    <itype>fqdn</itype>
+    <tlp>green</tlp>
+    <uuid>24423bab-c81f-4819-b9be-c3d9d975a835</uuid>
+    ...
 </Indicator>
 </xml>
 ```
 ## JSON
 
 ```
-"Indicator": [{
-    "version": "0.0001",
-    "id": 1,
-    "Indicator": "example.com",
-    "TLP": "RED"
-}]
+"Indicator": {
+    "count": 1,
+    "indicator": "http://example.com/1.htm",
+    "itype": "url",
+    "tags": [
+        "phishing"
+    ],
+    "tlp": "green",
+    "uuid": "24423bab-c81f-4819-b9be-c3d9d975a835"
+    ...
+}
 ```
 
-# 7. Data Types
-## Real Numbers
-
-Real (floating-point) attributes are represented by the REAL data type. Real data MUST be encoded in Base 10.
-
-## Enumerated Types
-
-Enumerated types are represented by the ENUM data type, and consist of an ordered list of acceptable values.  Each value has a representative keyword.  Within the schema, the enumerated type keywords are used as attribute values.
-
-# 8. References
+# 7. References
 ## Known Implementations
 
 * csirtg-indicator-py - [github.com/csirtgadgets](https://github.com/csirtgadgets/indicator-py)
 
-
-## Misc
+# 8. References
 * CSIRT Gadgets Protocols - [csirtgadgets.org](http://csirtgadgets.org/rfc)
 * Licenses for Protocols - [hintjens.com](http://hintjens.com/blog:41)
 * Consensus Oriented Specification System - [digistan.org](http://www.digistan.org/)
